@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/register.css') }}">
+
+
+    <title>Chronicles</title>
+</head>
+
+<body>
+
+
+
+    <!-- Start Navigation Bar -->
+    <div class="nav">
+        <img class="img" src="{{ url_for('static', filename='img/light.jpeg') }}">
+        <h1>Chronicles <span>
+                <h3>Write it down...</h3>
+            </span>
+        </h1>
+    </div>
+    <!-- End Navigation Bar -->
+    <div class="paragraph">
+        <form action="/user/create" method="POST">
+            <div class="form">
+                <label for="first_name">First Name: </label>
+                <input class="back" type="text" name="first_name" id="first_name">
+                <label for="last_name">Last Name: </label>
+                <input class="back" type="text" name="last_name" id="last_name">
+                <label for="email">Email: </label>
+                <input class="back" type="text" name="email" id="email">
+                <label for="password">Password: </label>
+                <input class="back" type="text" name="password" id="password">
+                <label for="confirm_password">Confirm Password: </label>
+                <input class="back" type="text" name="confirm_password" id="confirm_password">
+                <input type="submit" value="Register" class="press">
+            </div>
+        </form>
+        <a id="button" href="/"><button type="submit">Login</button></a>
+    </div>
+    <div>
+        <video class="container" src="{{ url_for('static', filename='video/manTyping.mp4') }}" muted autoplay loop>
+        </video>
+    </div>
+    <div class="flash">
+        {% with messages = get_flashed_messages() %}
+        <!-- declare a variable called messages -->
+        {% if messages %}
+        <!-- check if there are any messages -->
+        {% for message in messages %}
+        <!-- loop through the messages -->
+        <p>{{message}}</p>
+        <!-- display each message in a paragraph tag -->
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+</body>
+
+</html>

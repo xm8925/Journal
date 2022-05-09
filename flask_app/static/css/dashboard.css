@@ -1,0 +1,33 @@
+* {
+margin: 0px;
+padding: 0px;
+font-family: Chalkduster;
+color: rgb(236, 171, 124);
+background-color: rgb(33,35,45);
+}
+
+
+
+.img {
+    width: 188px;
+    height: 175px;
+}
+
+.img2 {
+    width: 240px;
+    height: 217px;
+    border-radius: 50%;
+    margin-top: 60px;
+}
+
+
+.spinner-border {
+    margin-top: 30px;
+}
+
+
+.container-fluid {
+    padding-top: 20px;
+
+}
+
