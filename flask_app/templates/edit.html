@@ -8,135 +8,103 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/edit.css') }}">
 
     <title>Updating ...</title>
 </head>
 
-<body class="container-fluid bg-dark">
+<body class="container-fluid picture"
+    style="background-image: url({{ url_for('static', filename='img/edit.jpg') }});">
 
-    <div class="container-fluid bg-dark">
-
-        <!-- START NAVBAR -->
-        <nav class="navbar navbar-light bg-rgb(33,35,45)">
-            <div class="container-fluid bg-rgb(33,35,45)">
-                <a class="navbar-brand text-light d-flex" href="/dashboard">
-                    <img src="{{ url_for('static', filename='img/light.jpeg') }}" alt="" width="60" height="60"
-                        class="d-inline-block align-text-center rounded-circle">
-                    <div class="d-flex flex-column">
-                        <h2 class="d-flex">Chronicles</h2>
-                        <small class="h6 text-muted">Write it down ..</small>
-                    </div>
-                </a>
-                <div>
-                    <a href="/dashboard"><button class="btn btn-secondary" type="button">Go Back</button></a>
+    <!-- START OF NAV BAR -->
+    <nav class="navbar">
+        <div class="navbar-brand align-items-center">
+            <strong class="font">Chronicles</strong>
+        </div>
+        <div>
+            <a href="/dashboard"><button class="btn me-md-2 write" type="button">Go Back</button></a>
+            <a href="/destroy_session"><button class="btn logout" type="button">Log Out</button></a>
+        </div>
+    </nav>
+    <!-- END OF NAV BAR -->
+    <!-- MAIN CONTENT -->
+    <div class="row justify-content-evenly mt-5">
+        <!-- START LEFT SIDE -->
+        <div class="col-4">
+            <!-- START FORM -->
+            <form action="/entry/create" method="post" enctype="multipart/form-data">
+                <!-- Date: input -->
+                <div class="input-group mb-3 mt-4">
+                    <span class="input-group-text labels">Date:</span>
+                    <input type="text" class="form-control" name="date" placeholder="YYYY-MM-DD"
+                        value="{{entries.date}}">
+                    <span>{% for message in get_flashed_messages(category_filter=["error_user_date"]) %}
+                        <small class="text-danger"><strong>{{message}}</strong></small>
+                        {%endfor%}</span>
                 </div>
+                <!-- Title input -->
+                <div class="input-group mb-3">
+                    <span class="input-group-text labels">Title</span>
+                    <input type="text" class="form-control" name="title" value="{{entries.title}}">
+                    <span>{% for message in get_flashed_messages(category_filter=["error_user_title"]) %}
+                        <small class="text-danger"><strong>{{message}}</strong></small>
+                        {%endfor%}</span>
+                </div>
+                <!-- Description input -->
+                <h5 class="text-light text-center">Description</h5>
+                <div class="input-group mb-3">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"
+                        placeholder="Write it down .." name="description">{{entries.description}}</textarea>
+                    <span>{% for message in get_flashed_messages(category_filter=["error_user_description"]) %}
+                        <small class="text-danger labels"><strong>{{message}}</strong></small>
+                        {%endfor%}</span>
+                </div>
+        </div>
+        <!-- END LEFT SIDE -->
+        <!-- START RIGHT SIDE -->
+        <div class="col-4">
+            <div class="input-group mb-3">
+                <p class="text-light">Music API HERE</p>
             </div>
-        </nav>
-        <!-- END NAVBAR -->
-
-        <!-- START FORM -->
-        <div class="row justify-content-start bg-secondary">
-            <div class="col-6">
-                <form action="/entry/update/{{entries.id}}" method="post">
-                    <div class="form-group mt-5">
-                        <div class="input-group mb-3 has-validation">
-                            <!-- Date: input -->
-                            <span class="input-group-text bg-dark text-light border-dark"
-                                id="inputGroup-sizing-default">Date:</span>
-                            <input type="text" class="form-control is-invalid" id="date" id="validationServerUsername"
-                                name="date" aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback"
-                                required value="{{entries.date}}">
-                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
-                                Please enter a date.
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <div class="col-4 mt-4 d-inline-block ms-5">
+            <div class="row align-items-center mood-box mt-5">
                 <div class="col-5 d-flex justify-content-between">
-                    <img src="{{ url_for('static', filename='img/happy.png') }}" alt="happy_face" width="60" height="60"
-                        class="rounded-circle me-5">
-                    <img src="{{ url_for('static', filename='img/sad.png') }}" alt="sad_face" width="60" height="60"
-                        class="rounded-circle ms-4 me-5">
-                    <img src="{{ url_for('static', filename='img/mad.png') }}" alt="mad_face" width="60" height="60"
-                        class="rounded-circle ">
+                    <img src="{{ url_for('static', filename='img/happy.png') }}" alt="happy_face"
+                        class="rounded-circle emojis">
+                    <img src="{{ url_for('static', filename='img/sad.png') }}" alt="sad_face"
+                        class="rounded-circle emojis">
+                    <img src="{{ url_for('static', filename='img/mad.png') }}" alt="mad_face"
+                        class="rounded-circle emojis">
                 </div>
                 <!-- Mood input -->
-                <input type="range" class="form-range" min="1" max="3" id="customRange2" name="mood">
+                <input type="range" class="form-range ms-4" min="1" max="3" name="mood" value="{{entries.mood}}">
+            </div>
+            <!-- Image input -->
+            <div class="input-group mb-5 mt-5">
+                <!-- Image input -->
+                <input class="form-control form-control-lg has-validation is-invalid labels" id="formFileLg" type="file"
+                    name="media">
+                <span>{% for message in get_flashed_messages(category_filter=["error_user_media"]) %}
+                    <small class="text-danger labels"><strong>{{message}}</strong></small>
+                    {%endfor%}</span>
+            </div>
+            <div class="form-group">
+                <!-- Submit button -->
+                <button class="btn btn-dark sub" name="submit" type="submit">Submit</button>
             </div>
         </div>
-        <div class="row justify-content-start bg-secondary pt-4">
-            <div class="col-6">
-                <div class="input-group mb-3">
-                    <!-- Title input -->
-                    <span class="input-group-text bg-dark text-light border-dark has-validation"
-                        id="inputGroup-sizing-default">Title</span>
-                    <input type="text" class="form-control is-invalid" aria-label="Sizing example input"
-                        aria-describedby="inputGroup-sizing-default validationServer03Feedback" name="title"
-                        id="validationServer03" value="{{entries.title}}">
-                    <div id="validationServer03Feedback" class="invalid-feedback">
-                        Please provide a title.
-                    </div>
-                </div>
-            </div>
-            <div class="col-4 ms-5">
-                MUSIC API HERE
-            </div>
-        </div>
-        <div class="row justify-content-start bg-secondary pt-5">
-            <div class="col-6">
-                <div class="mb-3">
-                    <!-- Description input -->
-                    <textarea value="{{entries.description}}" class="form-control has-validation is-invalid"
-                        id="exampleFormControlTextarea1" rows="10" name="description" id="validationServer04"
-                        aria-describedby="validationServer04Feedback" required></textarea>
-                    <div id="validationServer04Feedback" class="invalid-feedback">
-                        Forgot to fill this out.
-                    </div>
-                </div>
-                <div class="form-group">
-                    <!-- Submit button -->
-                    <button class="btn btn-dark " name="submit" type="submit">Submit</button>
-                </div>
-            </div>
-            <div class="col-5 ms-5">
-                <div>
-                    <!-- Image input -->
-                    <label for="formFileLg" class="form-label text-light pt-5">Upload your image</label>
-                    <input class="form-control form-control-lg has-validation is-invalid" id="formFileLg" type="file"
-                        name="media" id="validationServer05" aria-describedby="validationServer05Feedback" value="{{entries.media}}">
-                    <div id="validationServer05Feedback" class="invalid-feedback">
-                        Please upload an image, its important to look back.
-                    </div>
-                </div>
-            </div>
-        </div>
-        </form>
-        <!-- END FORM -->
     </div>
-
-
-    <div class="flash">
-        {% with messages = get_flashed_messages() %}
-        <!-- declare a variable called messages -->
-        {% if messages %}
-        <!-- check if there are any messages -->
-        {% for message in messages %}
-        <!-- loop through the messages -->
-        <p>{{message}}</p>
-        <!-- display each message in a paragraph tag -->
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
+    </form>
+    <!-- END FORM -->
+    <!-- END RIGHT SIDE -->
     </div>
-
-
-
+    <!-- END MAIN CONTENT -->
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+    <!-- JAVASCRIPT -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/edit.js') }}"></script>
 </body>
 
 </html>

@@ -5,87 +5,91 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dashboard.css') }}">
-
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dashboard.css') }}">
     <title>My Profile</title>
 </head>
 
-<body class="bg-dark m-3">
-    <!-- START OF CONTAINER -->
-    <div class="container-fluid">
-        <div class="row g-0">
-            <div class="col-sm-6 col-md-8">
-                <!-- IMAGE ONE  -->
-                <img src="{{ url_for('static', filename='img/pp.jpg') }}">
-            </div>
-            <div class="col-6 col-md-4">
-                <div>
-                    <a href="/entry/new"><button class="btn btn-secondary me-md-2" type="button" role="status">Write it...</button></a>
-                    <a href="/destroy_session"><button class="btn btn-danger" type="button">Log Out</button></a>
+<body class="container-fluid picture" style="background-image: url({{ url_for('static', filename='img/blue.jpg') }});">
+    <!-- START OF NAV BAR -->
+    <nav class="navbar">
+        <div class="navbar-brand align-items-center">
+            <strong class="font">Chronicles</strong>
+        </div>
+        <div>
+            <a href="/entry/new"><button class="btn me-md-2 write" type="button">Write it...</button></a>
+            <a href="/destroy_session"><button class="btn logout" type="button">Log Out</button></a>
+        </div>
+    </nav>
+    <!-- END OF NAV BAR -->
+    <!-- START MAIN CONTENT -->
+    <div class="row justify-content-around mt-4">
+        <!-- START LEFT SIDE -->
+        <div class="col-4">
+            <div class="row align-items-center">
+                <div class="col-sm-6 col-md-8 ms-4">
+                    <!-- PROFILE PICTURE  -->
+                    <img class="profile" src="{{ url_for('static', filename='img/pp.jpg') }}">
                 </div>
-                <div class="spinner-border text-danger" role="status">
-                    <span class="visually-hidden">Loading...</span>
-
+                <div class="col-sm-6 col-md-8 mt-4 ms-4 p-1 border border-light text-center name">
+                    <p class="pt-2 mt-1">{{user.fullname}}</p>
+                </div>
+                <div class="col-sm-6 col-md-8 mt-4 ms-4 p-1 border border-light text-center name">
+                    <p class="pt-2 mt-1">{{user.email}}</p>
                 </div>
             </div>
         </div>
-        <div class="row align-items-center">
-            <div class="row">
-                <div class="container overflow-hidden">
-                    <div class="row gy-5">
-                        <div class="col-6 " class="name">
-                            <div class="p-3 border-none bg-background-color: rgb(33,35,45)">{{user.fullname}}</div>
-                            <div class="p-3 border-none bg-background-color: rgb(33,35,45)">{{user.email}}</div>
-                        </div>
-                        <div class="col-6">
-                            <div class="p-3 border-none bg-secondary text-center">Past Entries</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="d-flex w-100 justify-content-between">
-            <div class="row">
-                <!-- IMAGE (2) HERE -->
-                <div class="col-6"><img class="img2" src="{{ url_for('static', filename='img/light.jpeg') }}"></div>
-            </div>
-            <div class="list-group p-3 col-6">
+        <!-- END LEFT SIDE -->
+        <!-- START RIGHT SIDE -->
+        <div class="col-4">
+            <div class="row align-items-center past">
+                <h2 class="text-center">Past Entries</h2>
+<div class="overflow-auto" style="height: 400px;">
                 {% for entry in entries%}
-                <a href="/entry/{{entry.id}}" class="list-group-item-bg-rgb(33,35,45) list-group-item-action-rgb(33,35,45) p-3 border text-muted">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{entry.title}}</h5>
-                        <small class="text-muted">{{entry.date}}</small>
-                    </div>
-                    {%if entry.mood == 1%}
-                    <p class="mb-1">This was a happy memory ...</p>
-                    <small><img src="{{ url_for('static', filename='img/happy.png') }}" alt="happy_face" width="60" height="60"
-                        class="rounded-circle"></small>
-                    {%elif entry.mood == 2%}
-                    <p class="mb-1">Not the best moment ...</p>
-                    <img src="{{ url_for('static', filename='img/sad.png') }}" alt="sad_face" width="60" height="60"
-                    class="rounded-circle ">
-                    {%else%}
-                    <p class="mb-1">Remember to keep calm ...</p>
-                    <img src="{{ url_for('static', filename='img/mad.png') }}" alt="mad_face" width="60" height="60"
-                    class="rounded-circle">
-                    {%endif%}
-                </a>
+                {%if entry.mood == 1%}
+                <div class="p-2 entries m-2 happy">
+                    <a href="/entry/{{entry.id}}" class="text-decoration-none text-dark">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{entry.title}}</h5>
+                            <small class="text-decoration-none">{{entry.date}}</small>
+                        </div>
+                        <p class="mb-1">This was a happy memory ...</p>
+                    </a>
+                </div>
+                {%elif entry.mood == 2%}
+                <div class="p-2 entries m-2 sad">
+                    <a href="/entry/{{entry.id}}" class="text-decoration-none text-dark">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{entry.title}}</h5>
+                            <small class="text-decoration-none">{{entry.date}}</small>
+                        </div>
+                        <p class="mb-1">Not the best moment ...</p>
+                    </a>
+                </div>
+                {%else%}
+                <div class="p-2 entries m-2 mad">
+                    <a href="/entry/{{entry.id}}" class="text-decoration-none text-dark">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{entry.title}}</h5>
+                            <small class="text-decoration-none">{{entry.date}}</small>
+                        </div>
+                        <p class="mb-1">Deep breathe in, and out...</p>
+                    </a>
+                </div>
+                {%endif%}
                 {%endfor%}
             </div>
-
-
+            </div>
         </div>
     </div>
-    <!-- END OF CONTAINER -->
+    <!-- END RIGHT SIDE -->
+    </div>
+    <!-- END MAIN CONTENT -->
 
-
-
-    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

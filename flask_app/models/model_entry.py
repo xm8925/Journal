@@ -128,20 +128,20 @@ class Entry:
     @staticmethod
     def validate_entry(entry):
         if len(entry['date']) < 1:
-            flash("The date please ... ")
+            flash("The date please ... ", "error_user_date")
             is_valid = False
         is_valid = True # we assume this is true
         if len(entry['title']) < 2:
-            flash("Title must be at least 3 characters long :)")
+            flash("Title must be at least 3 characters long :)", "error_user_title")
             is_valid = False
             # FIGURE OUT THE MOOD THING
         if len(entry['mood']) < 1:
             flash("How do you feel ... ")
             is_valid = False
         if len(entry['description']) < 2:
-            flash("Description must have at least 3 characters.")
+            flash("Description must have at least 3 characters.", "error_user_description")
             is_valid = False
         if len(entry['media']) < 2:
-            flash("upload a pic please")
+            flash("upload a pic please", "error_user_media")
             is_valid = False
         return is_valid

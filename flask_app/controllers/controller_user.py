@@ -4,12 +4,12 @@ from flask_app import app, bcrypt
 from flask_app.models.model_user import User
 from flask_app.models.model_entry import Entry
 
-
-# Action Route (never render on an action route) Register New User
+# Register New User
+# Action Route (never render on an action route) 
 @app.route('/user/create', methods=['POST'])
 def create_user():
     if not User.validate(request.form):
-        return redirect('/register')
+        return redirect('/')
     # validate the form here ...
     # create the hash
     pw_hash = bcrypt.generate_password_hash(request.form['password'])
@@ -22,7 +22,8 @@ def create_user():
     session['user_id'] = User.create(data)
     return redirect('/dashboard')
 
-# Action Route (never render on an action route) Login Information
+# Login Information
+# Action Route (never render on an action route) 
 @app.route('/login', methods=['POST'])
 def login():
     # see if the username provided exists in the database
@@ -30,13 +31,13 @@ def login():
     user_in_db = User.get_by_email(data)
     # user is not registered in the db
     if not user_in_db:
-        flash("Invalid Email/Password")
+        flash("Invalid Email", "error_valid_email")
         return redirect("/")
     print(user_in_db.password)
     print(request.form['password'])
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
         # if we get False after checking the password
-        flash("Invalid Email/Password")
+        flash("Invalid Password", "error_valid_password")
         return redirect('/')
     # if the passwords matched, we set the user_id into session
     session['user_id'] = user_in_db.id
@@ -47,7 +48,7 @@ def login():
 
 
 
-
+# LOGOUT
 @app.route("/destroy_session")
 def clear_session():
     session.clear()

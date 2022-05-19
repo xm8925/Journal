@@ -1,6 +1,61 @@
+/* BACKGROUND */
 * {
-    margin: 0px;
-    padding: 0px;
-    font-family: Chalkduster;
-    color: rgb(236, 171, 124);
-    }
+    font-family: Copperplate;
+}
+
+
+.picture {
+background-repeat: no-repeat;
+background-size: cover;
+}
+
+/* NAV BAR */
+.font {
+font-size: 3em;
+font-family: Chalkduster;
+color: black;
+}
+
+
+/* EDIT BUTTON */
+/* GO BACK BUTTON */
+.write {
+    background-color: rgb(236, 171, 124);
+
+}
+
+.write:hover {
+    background-color: whitesmoke;
+    box-shadow: 0 0 5px 5px whitesmoke;
+}
+
+/* LOGOUT BUTTON */
+/* DELETE BUTTON */
+.logout {
+    background-color: rgba(157, 36, 36, 0.792);
+
+
+}
+
+.logout:hover {
+    background-color: rgb(239, 67, 67);
+    box-shadow: 0 0 5px 5px rgb(239, 67, 67);
+}
+
+/* MAIN CONTENT */
+
+.main {
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 30px;
+    border: 3px solid rgb(236, 171, 124);
+    box-shadow: 0 0 5px 5px rgb(236, 171, 124);
+    background-color: rgba(236, 171, 124, 0.554);
+
+}
+
+.media-pic {
+    width: 230px;
+    height: 190px;
+    border: 1px solid rgb(236, 171, 124);
+}

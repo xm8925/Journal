@@ -96,6 +96,35 @@ class User:
 
 
 # Static Methods
+
+# VALIDATIONS BELOW
+# USER
+    @staticmethod
+    def validate(user):
+        is_valid = True # we assume this is true
+        if len(user['first_name']) < 2:
+            flash("Name must have at least 3 characters.", "error_user_first_name")
+            is_valid = False
+        if len(user['last_name']) < 2:
+            flash(" Last Name must have at least 3 characters.", "error_user_last_name")
+            is_valid = False
+            
+        if len(user['email']) < 1:
+            flash("Have to put a valid email", "error_user_email")
+            is_valid = False
+        if len(user['password']) < 8:
+            flash("Put at least 8 characters in the password box.", "error_user_password")
+            is_valid = False
+        if len(user['confirm_password']) < 8:
+            flash("Confirm password is a required field!", "error_user_confirm_password")
+            is_valid = False
+        if user['confirm_password'] != user['password']:
+            flash("Has to match the first password")
+            is_valid = False
+        return is_valid
+
+
+# EMAIL
     @staticmethod
     def validate_email(user:dict) -> None:
         """
@@ -110,31 +139,4 @@ class User:
         if not EMAIL_REGEX.match(user['email']):
             flash("Email aint real bro")
             is_valid = False
-        return is_valid
-
-
-    @staticmethod
-    def validate(user:dict) -> None:
-        """
-        we use this method to verify the user
-        """
-        is_valid = True # we assume this is true
-        if len(user['first_name']) < 2:
-            flash("Name must have at least 3 characters.")
-            is_valid = False
-        if len(user['last_name']) < 2:
-            flash(" Last Name must have at least 3 characters.")
-            is_valid = False
-        if len(user['email']) < 1:
-            flash("Have to put a valid email")
-            is_valid = False
-        if len(user['password']) < 8:
-            flash("Put at least 8 characters in the password box.")
-            is_valid = False
-        # if len(user['confirm_password']) < 8:
-        #     flash("Confirm password is a required field!")
-        #     is_valid = False
-        # if user['confirm_password'] != user['password']:
-        #     flash("Has to match the first password")
-        #     is_valid = False
         return is_valid
