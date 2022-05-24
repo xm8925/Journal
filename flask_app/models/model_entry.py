@@ -110,9 +110,20 @@ class Entry:
         """
         updating from the entries table
         """
-        query = "UPDATE entries SET date = %(date)s, title = %(title)s, mood = %(mood)s, description = %(description)s, media = %(media)s WHERE id = %(id)s;"
+        query = "UPDATE entries SET date = %(date)s, title = %(title)s, mood = %(mood)s, description = %(description)s WHERE id = %(id)s;"
         # make sure to call the connectToMySQL function with the schema you are targeting.
         return connectToMySQL(DATABASE).query_db(query, data)
+
+    @classmethod
+    def update_with_media(cls, data:dict) -> None:
+        """
+        updating from the entries table
+        """
+        query = "UPDATE entries SET date = %(date)s, title = %(title)s, mood = %(mood)s, description = %(description)s, media = %(media)s WHERE id = %(id)s;"
+        # make sure to call the connectToMySQL function with the schema you are targeting.
+        return connectToMySQL(DATABASE).query_db(query, data)    
+
+
 # D
     @classmethod
     def delete_one(cls, data:dict) -> None:
@@ -141,7 +152,5 @@ class Entry:
         if len(entry['description']) < 2:
             flash("Description must have at least 3 characters.", "error_user_description")
             is_valid = False
-        if len(entry['media']) < 2:
-            flash("upload a pic please", "error_user_media")
-            is_valid = False
         return is_valid
+

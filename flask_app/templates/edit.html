@@ -23,7 +23,7 @@
             <strong class="font">Chronicles</strong>
         </div>
         <div>
-            <a href="/dashboard"><button class="btn me-md-2 write" type="button">Go Back</button></a>
+            <a href="/entry/{{entries.id}}"><button class="btn me-md-2 write" type="button">Go Back</button></a>
             <a href="/destroy_session"><button class="btn logout" type="button">Log Out</button></a>
         </div>
     </nav>
@@ -33,7 +33,7 @@
         <!-- START LEFT SIDE -->
         <div class="col-4">
             <!-- START FORM -->
-            <form action="/entry/create" method="post" enctype="multipart/form-data">
+            <form action="/entry/update/{{entries.id}}" method="post" enctype="multipart/form-data">
                 <!-- Date: input -->
                 <div class="input-group mb-3 mt-4">
                     <span class="input-group-text labels">Date:</span>
