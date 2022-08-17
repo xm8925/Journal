@@ -14,14 +14,17 @@
 </head>
 
 <body class="container-fluid background">
-
     <!-- START OF NAV BAR -->
     <nav class="navbar">
         <div class="navbar-brand d-flex align-items-center">
             <img src="{{ url_for('static', filename='img/light.jpeg') }}" alt="anchor" width="60" height="60"
                 class="d-inline-block align-text-top rounded">
-            <strong class="font">Chronicles</strong>
+                <div class="d-flex flex-column">
+                    <strong class="font">Chronicles</strong>
+                    <span>Write it down...</span>
+                </div>
         </div>
+        <a href="/demo_dashboard" class="btn input text-light" >Continue as Guest</a>
     </nav>
     <!-- END OF NAV BAR -->
     <!-- VIDEO -->
@@ -84,7 +87,6 @@
                             {%endfor%}
                         </span>
                     </div>
-
                     <!-- SUBMIT BUTTON -->
                     <div class="col-12 mt-4">
                         <button type="submit" class="btn input text-light">Sign Up!</button>

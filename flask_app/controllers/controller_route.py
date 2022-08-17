@@ -44,6 +44,20 @@ def results():
     entries = Entry.get_entry_of_user()
     return render_template("dashboard.html", user=user, entries=entries)
 
+#DEMO Dashboard
+@app.route('/demo_dashboard')
+def demo_dash():
+    return render_template("dashdemo.html")
+
+#DEMO ENTRY
+@app.route('/demo_entry')
+def demo_entry():
+    return render_template("entrydemo.html")
+
+#DEMO NEW ENTRY
+@app.route('/demo_new_entry')
+def demo_new_entry():
+    return render_template("newdemo.html")
 
 # VIEW ENTRY INFO
 # Display Route
