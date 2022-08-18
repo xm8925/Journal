@@ -93,7 +93,7 @@ def edit_entry(id):
 def upload_file():
     app.logger.info('in upload route')
 
-    cloudinary.config(cloud_name=os.getenv('CLOUD_NAME'), api_key=os.getenv('API_KEY'), api_secret=os.getenv('API_SECRET'))
+    cloudinary.config(cloud_name=os.getenv('dv8hba4xs'), api_key=os.getenv('819863966498765'), api_secret=os.getenv('bFz-LAGID3C8uEB-RuccmwAyuxk'))
     upload_result = None
     file_to_upload = request.files['file']
     app.logger.info('%s file_to_upload', file_to_upload)
