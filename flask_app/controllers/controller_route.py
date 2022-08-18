@@ -8,8 +8,6 @@ import os
 from flask_app.seed import user_data
 
 # Display Route
-
-
 @app.route('/api/seed')
 def seed():
     user_id = User.create(user_data)
