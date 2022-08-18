@@ -13,7 +13,7 @@ import os
 def create_entry():
     if not Entry.validate_entry(request.form) or request.files['media'].filename == '':
         return redirect('/entry/new')
-    config(cloud_name=os.getenv('dv8hba4xs'), api_key=os.getenv('819863966498765'), api_secret=os.getenv('bFz-LAGID3C8uEB-RuccmwAyuxk'))
+    config(cloud_name='dv8hba4xs', api_key='819863966498765', api_secret='bFz-LAGID3C8uEB-RuccmwAyuxk')
     upload_result = None
     file_to_upload = request.files['media']
     if file_to_upload:
@@ -48,7 +48,7 @@ def entry_edit(id):
         Entry.update_entry(data)
         return redirect('/dashboard')
     
-    config(cloud_name=os.getenv('dv8hba4xs'), api_key=os.getenv('819863966498765'), api_secret=os.getenv('bFz-LAGID3C8uEB-RuccmwAyuxk'))
+    config(cloud_name='dv8hba4xs', api_key='819863966498765', api_secret='bFz-LAGID3C8uEB-RuccmwAyuxk')
     upload_result = None
     file_to_upload = request.files['media']
     if file_to_upload:
